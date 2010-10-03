@@ -155,4 +155,4 @@ LB_SYSLINUX_MENU_MEMTEST_ENTRY=""
 
 # $LB_USERNAME: set username
 # (Default: user)
-LB_USERNAME="user"
+LB_USERNAME="root"
