@@ -70,4 +70,4 @@ LB_MIRROR_DEBIAN_INSTALLER="http://ftp.de.debian.org/debian/"
 
 # $LB_ARCHIVE_AREAS: select archive areas to use
 # (Default: main)
-LB_ARCHIVE_AREAS="main"
+LB_ARCHIVE_AREAS="main non-free contrib"

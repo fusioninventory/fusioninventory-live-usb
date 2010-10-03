@@ -6,7 +6,7 @@ LB_BINARY_FILESYSTEM="fat16"
 
 # $LB_BINARY_IMAGES: set image type
 # (Default: iso-hybrid)
-LB_BINARY_IMAGES="iso-hybrid"
+LB_BINARY_IMAGES="usb-hdd"
 
 # $LB_BINARY_INDICES: set apt/aptitude generic indices
 # (Default: true)
@@ -59,11 +59,11 @@ LB_GRUB_SPLASH=""
 
 # $LB_HOSTNAME: set hostname
 # (Default: debian)
-LB_HOSTNAME="debian"
+LB_HOSTNAME="fusioninventory"
 
 # $LB_ISO_APPLICATION: set iso author
 # (Default: Debian Live)
-LB_ISO_APPLICATION="Debian Live"
+LB_ISO_APPLICATION="FusionInventory Live"
 
 # $LB_ISO_PREPARER: set iso preparer
 # (Default: live-build $VERSION; http://packages.qa.debian.org/live-build)
@@ -71,11 +71,11 @@ LB_ISO_PREPARER="live-build $VERSION; http://packages.qa.debian.org/live-build"
 
 # $LB_ISO_PUBLISHER: set iso publisher
 # (Default: Debian Live project; http://live.debian.net/; debian-live@lists.debian.org)
-LB_ISO_PUBLISHER="Debian Live project; http://live.debian.net/; debian-live@lists.debian.org"
+LB_ISO_PUBLISHER="FusionInventory; http://www.FusionInventory.org/; fusioninventory-devel@lists.debian.org"
 
 # $LB_ISO_VOLUME: set iso volume (max 32 chars)
 # (Default: Debian squeeze $(date +%Y%m%d-%H:%M))
-LB_ISO_VOLUME="Debian squeeze $(date +%Y%m%d-%H:%M)"
+LB_ISO_VOLUME="FusionInventory $(date +%Y%m%d-%H:%M)"
 
 # $LB_JFFS2_ERASEBLOCK: set jffs2 eraseblock size
 # (Default: unset)
@@ -83,7 +83,7 @@ LB_JFFS2_ERASEBLOCK=""
 
 # $LB_MEMTEST: set memtest
 # (Default: memtest86+)
-LB_MEMTEST="memtest86+"
+LB_MEMTEST=""
 
 # $LB_WIN32_LOADER: set win32-loader
 # (Default: false)
@@ -103,11 +103,11 @@ LB_NET_ROOT_PATH="/srv/debian-live"
 
 # $LB_NET_ROOT_SERVER: set netboot server address
 # (Default: 192.168.1.1)
-LB_NET_ROOT_SERVER="192.168.1.1"
+LB_NET_ROOT_SERVER=""
 
 # $LB_NET_COW_FILESYSTEM: set net client cow filesystem
 # (Default: nfs)
-LB_NET_COW_FILESYSTEM="nfs"
+LB_NET_COW_FILESYSTEM=""
 
 # $LB_NET_COW_MOUNTOPTIONS: set cow mount options
 # (Default: empty)
@@ -131,7 +131,7 @@ LB_SYSLINUX_SPLASH=""
 
 # $LB_SYSLINUX_TIMEOUT: set custom syslinux timeout in seconds
 # (Default: 0)
-LB_SYSLINUX_TIMEOUT="0"
+LB_SYSLINUX_TIMEOUT="1"
 
 # $LB_SYSLINUX_CFG: set custom syslinux configuration file
 # (Default: empty)
@@ -143,7 +143,7 @@ LB_SYSLINUX_MENU="true"
 
 # $LB_SYSLINUX_MENU_LIVE_ENTRY: set text to be used on the menu for live entries
 # (Default: Live)
-LB_SYSLINUX_MENU_LIVE_ENTRY="Live"
+LB_SYSLINUX_MENU_LIVE_ENTRY="FusionInventory"
 
 # $LB_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY: set text to be used on the menu for live entries (failsafe ones)
 # (Default: )
@@ -151,7 +151,7 @@ LB_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY=""
 
 # $LB_SYSLINUX_MENU_MEMTEST_ENTRY: set text to be used on the menu for memtest entry
 # (Default: Memory test)
-LB_SYSLINUX_MENU_MEMTEST_ENTRY="Memory test"
+LB_SYSLINUX_MENU_MEMTEST_ENTRY=""
 
 # $LB_USERNAME: set username
 # (Default: user)
