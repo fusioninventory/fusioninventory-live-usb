@@ -7,3 +7,9 @@ Requirement:
 
 Build:
  make
+
+TODO:
+  We need to create the proper dialog box
+  Patch the agent so it can get the screen resolution:
+   http://forge.fusioninventory.org/issues/316
+  Filter the unwanted section (ENVS, the USB key in STORAGES, etc)
