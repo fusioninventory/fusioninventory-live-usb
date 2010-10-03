@@ -34,7 +34,7 @@ LB_LANGUAGE="en"
 
 # $LB_LINUX_FLAVOURS: set kernel flavour to use
 # (Default: autodetected)
-LB_LINUX_FLAVOURS="486 686"
+LB_LINUX_FLAVOURS="486"
 
 # $LB_LINUX_PACKAGES: set kernel packages to use
 # (Default: autodetected)
