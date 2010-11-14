@@ -11,7 +11,9 @@
 #
 # By default this script does nothing.
 
-xinit
+dpkg-reconfigure keyboard-configuration
+setupcon
+sh ../dialog.sh
 reboot
 
 exit 0
