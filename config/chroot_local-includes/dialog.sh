@@ -1,4 +1,7 @@
 #!/bin/sh
+DIALOG=${DIALOG=dialog}
+
+
 
 
 #########################################################
@@ -14,8 +17,7 @@ function arret_utilisateur
 	0)
             # Oui
 	    # reboot
-	    echo "reboot"
-	    exit 0
+       	    exit 0
 	    ;;
 	*)
 	    # Non ou echap - Recommencer?
@@ -27,15 +29,18 @@ function arret_utilisateur
 
 
 
-DIALOG=${DIALOG=dialog}
-
 #########################################################
 # Création du fichier temporaire contenant les réponses #
 #########################################################
 fichierTemp=/tmp/fichierTempFusionInventory.$$
+#########################################################
+# Suppression du fichier temporaire                     #
+#########################################################
+trap "rm -f $fichierTemp" 0 1 2 5 15
 
 
-Commande="fusioninventory-agent "
+
+Commande="fusioninventory-agent"
 
 
 #########################################################
@@ -49,7 +54,7 @@ valRet=$?
 case $valRet in
     0)
 	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande"--server "`cat $fichierTemp`" "
+	    Commande=$Commande" --server "`cat $fichierTemp`
 	fi
 	;;
     *)
@@ -73,7 +78,8 @@ case $valRet in
 	# Oui	
 	;;
     1)
-	# Non
+	# Non - Lancement de la commande
+	echo "Lancement de l'agent \""$Commande"\""
 	`echo $Commande`
 	exit 0
 	;;
@@ -108,7 +114,7 @@ case $valRet in
 	if [  ! $user = "" ]; then
 	    if [ ! $pass = "" ]; then
 		if [ ! $realm = "" ]; then
-		    Commande=$Commande"--user="$user" --password="$pass" --realm=\""$realm"\" "
+		    Commande=$Commande" --user="$user" --password="$pass" --realm=\""$realm"\""
 		fi
 	    fi
 	fi
@@ -134,10 +140,10 @@ mkdir -p /etc/fusioninventory/certs/
 
 case $valRet in
     0)
-	Commande=$Commande"--ca-cert-dir=/etc/fusioninventory/certs --no-ssl-check "
+	Commande=$Commande" --ca-cert-dir=/etc/fusioninventory/certs --no-ssl-check"
 	;;
     1)
-	Commande=$Commande"--ca-cert-dir=/etc/fusioninventory/certs "
+	Commande=$Commande" --ca-cert-dir=/etc/fusioninventory/certs"
 	;;
     255)
 	arret_utilisateur
@@ -158,7 +164,7 @@ valRet=$?
 case $valRet in
     0)
 	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande"--proxy="`cat $fichierTemp`" "
+	    Commande=$Commande" --proxy="`cat $fichierTemp`
 	fi
 	;;
     *)
@@ -180,7 +186,7 @@ valRet=$?
 case $valRet in
     0)
 	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande"--rpc-port="`cat $fichierTemp`" "
+	    Commande=$Commande" --rpc-port="`cat $fichierTemp`
 	fi
 	;;
     *)
@@ -201,7 +207,7 @@ valRet=$?
 
 case $valRet in
     0)
-	Commande=$Commande"--debug "
+	Commande=$Commande" --debug"
 	;;
     1)
 	;;
@@ -223,7 +229,7 @@ valRet=$?
 
 case $valRet in
     0)
-	Commande=$Commande"--rpc-trust-localhost "
+	Commande=$Commande" --rpc-trust-localhost"
 	;;
     1)
 	;;
@@ -245,7 +251,7 @@ valRet=$?
 
 case $valRet in
     0)
-	Commande=$Commande"--scan-homedirs "
+	Commande=$Commande" --scan-homedirs"
 	;;
     1)
 	;;
@@ -268,7 +274,7 @@ valRet=$?
 case $valRet in
     0)
 	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande"--local "`cat $fichierTemp`" "
+	    Commande=$Commande" --local "`cat $fichierTemp`
 	fi
 	;;
     *)
@@ -280,15 +286,7 @@ esac
 
 
 #########################################################
-# Suppression du fichier temporaire                     #
-#########################################################
-rm -rf $fichierTemp
-
-
-
-
-#########################################################
 # Exécution de la commande                              #
 #########################################################
-echo $Commande
+echo "Lancement de l'agent \""$Commande"\""
 `echo $Commande`
