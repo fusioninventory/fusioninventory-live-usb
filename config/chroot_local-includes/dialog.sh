@@ -92,7 +92,6 @@ $DIALOG --title "Fusion Inventory - Server Authentification" --insecure \
     --mixedform "" 15 100 0 \
     "Username: " 1 1 "" 1 20 50 0 0 \
     "Password: " 2 1 "" 2 20 50 0 1 \
-    "Realm:    " 3 1 "" 3 20 50 0 0 2> $fichierTemp
 
 valRet=$?
 
@@ -102,13 +101,10 @@ case $valRet in
 	user=`cat $fichierTemp | head -n 1`
 	# Ajout de l'username
 	pass=`cat $fichierTemp | head -n 2 | tail -n 1`
-	# Ajout de l'username
-	realm=`cat $fichierTemp | tail -n 1`
 
 	if [  ! $user = "" ]; then
 	    if [ ! $pass = "" ]; then
-		if [ ! $realm = "" ]; then
-		    Commande=$Commande"--user="$user" --password="$pass" --realm=\""$realm"\" "
+		    Commande=$Commande"--user="$user" --password="$pass" "
 		fi
 	    fi
 	fi
@@ -125,7 +121,7 @@ esac
 # SSL options                                           #
 #########################################################
 $DIALOG --title "Fusion Inventory" --clear \
-	--yesno "The SSL cert has to be written in /etc/fusioninventory/certs\n\nNo certificate check when establishing SSL connection" 10 100
+	--yesno "The SSL cert has to be written in /etc/fusioninventory/certs\n\nDo you want to ignore certificate check when establishing SSL connection" 10 100
 
 valRet=$?
 
@@ -151,7 +147,7 @@ esac
 # Proxy                                                 #
 #########################################################
 $DIALOG --title "Fusion Inventory" --clear \
-    --inputbox "Proxy: " 16 100 2>$fichierTemp
+    --inputbox "Proxy: \nExample http://www-proxy:8080\n" 16 100 2>$fichierTemp
 
 valRet=$?
 
@@ -172,33 +168,33 @@ esac
 #########################################################
 # RPC-Port                                              #
 #########################################################
-$DIALOG --title "Fusion Inventory" --clear \
-    --inputbox "RPC-Port: " 16 100 2>$fichierTemp
-
-valRet=$?
-
-case $valRet in
-    0)
-	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande"--rpc-port="`cat $fichierTemp`" "
-	fi
-	;;
-    *)
-	arret_utilisateur
-	;;
-esac
-
-
-
+#$DIALOG --title "Fusion Inventory" --clear \
+#    --inputbox "RPC-Port: " 16 100 2>$fichierTemp
+#
+#valRet=$?
+#
+#case $valRet in
+#    0)
+#	if [ ! `cat $fichierTemp` = "" ]; then
+#	    Commande=$Commande"--rpc-port="`cat $fichierTemp`" "
+#	fi
+#	;;
+#    *)
+#	arret_utilisateur
+#	;;
+#esac
+#
+#
+#
 
 #########################################################
 # Debug                                                 #
 #########################################################
-$DIALOG --title "Fusion Inventory" --clear \
-	--yesno "Debug" 10 100
-
-valRet=$?
-
+#$DIALOG --title "Fusion Inventory" --clear \
+#	--yesno "Debug" 10 100
+#
+#valRet=$?
+#
 case $valRet in
     0)
 	Commande=$Commande"--debug "
@@ -216,30 +212,30 @@ esac
 #########################################################
 # Allow local user to run agent                         #
 #########################################################
-$DIALOG --title "Fusion Inventory" --clear \
-	--yesno "Allow local user to run agent" 10 100
-
-valRet=$?
-
-case $valRet in
-    0)
-	Commande=$Commande"--rpc-trust-localhost "
-	;;
-    1)
-	;;
-    255)
-	arret_utilisateur
-	;;
-esac
-
-
+#$DIALOG --title "Fusion Inventory" --clear \
+#	--yesno "Allow local user to run agent" 10 100
+#
+#valRet=$?
+#
+#case $valRet in
+#    0)
+#	Commande=$Commande"--rpc-trust-localhost "
+#	;;
+#    1)
+#	;;
+#    255)
+#	arret_utilisateur
+#	;;
+#esac
+#
+#
 
 
 #########################################################
 # Look for virtual machines in home directories         #
 #########################################################
 $DIALOG --title "Fusion Inventory" --clear \
-	--yesno "Look for virtual machines in home directories" 10 100
+	--yesno "Should the agent look for virtual machines in home directories?" 10 100
 
 valRet=$?
 
@@ -261,7 +257,7 @@ esac
 # Destination folder                                    #
 #########################################################
 $DIALOG --title "Fusion Inventory" --clear \
-    --inputbox "Destination folder:" 16 100 "/tmp" 2>$fichierTemp
+    --inputbox "Where to keep a local copy of the inventory?:" 16 100 "/root" 2>$fichierTemp
 
 valRet=$?
 
