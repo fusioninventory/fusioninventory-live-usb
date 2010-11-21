@@ -64,7 +64,7 @@ esac
 # Advanced options                                      #
 #########################################################
 $DIALOG --title "Fusion Inventory" --clear \
-	--yesno "Advanced options" 10 100
+	--yesno "Do you need advanced options?" 10 100
 
 valRet=$?
 
