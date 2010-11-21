@@ -91,7 +91,7 @@ esac
 $DIALOG --title "Fusion Inventory - Server Authentification" --insecure \
     --mixedform "" 15 100 0 \
     "Username: " 1 1 "" 1 20 50 0 0 \
-    "Password: " 2 1 "" 2 20 50 0 1 \
+    "Password: " 2 1 "" 2 20 50 0 1 2>$fichierTemp
 
 valRet=$?
 
