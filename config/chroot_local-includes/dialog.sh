@@ -105,7 +105,6 @@ case $valRet in
 	if [  ! $user = "" ]; then
 	    if [ ! $pass = "" ]; then
 		    Commande=$Commande"--user="$user" --password="$pass" "
-		fi
 	    fi
 	fi
 	;;
