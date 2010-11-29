@@ -1,14 +1,21 @@
 #!/bin/sh
+#########################################################
+#               FusionInventory  Live USB               #  
+#           Copyright (C) Valentin Henon 2010           #
+#########################################################
+DIALOG=${DIALOG=dialog}
+
+
 
 
 #########################################################
 # Fonction utilisée lors de l'interruption du programme #
 #########################################################
-function arret_utilisateur
+arret_utilisateur()
 {
     $DIALOG --title "Fusion Inventory" --clear \
 	--yesno "Do you want to restart your computer now?" 10 30
-
+    
     valRet=$?
     case $valRet in
 	0)
@@ -27,91 +34,57 @@ function arret_utilisateur
 
 
 
-DIALOG=${DIALOG=dialog}
-
 #########################################################
-# Création du fichier temporaire contenant les réponses #
+# Fonction pour le lancement d'un shell                 #
 #########################################################
-fichierTemp=/tmp/fichierTempFusionInventory.$$
+lancement_shell()
+{
+    $DIALOG --title "Fusion Inventory" --clear --no-label "Reboot" \
+	--yesno "Do you want a shell?" 10 50
+    
+    valRet=$?
+    
+    case $valRet in
+	0)
+            # Lancement d'un shell
+	    ;;
+	*)
+	    # Redémarrage
+	    exit 0
+	    ;;
+    esac
+}
 
 
-Commande="fusioninventory-agent "
-
-
-#########################################################
-# Liste des serveurs                                    #
-#########################################################
-$DIALOG --title "Fusion Inventory" --clear \
-    --inputbox "Servers addresses (separated by a comma [,]): \n( http://fusionserv/ocsinventory )" 16 100 2>$fichierTemp
-
-valRet=$?
-
-case $valRet in
-    0)
-	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande"--server "`cat $fichierTemp`" "
-	fi
-	;;
-    *)
-	arret_utilisateur
-	;;
-esac
-
-
-
-
-#########################################################
-# Advanced options                                      #
-#########################################################
-$DIALOG --title "Fusion Inventory" --clear \
-	--yesno "Do you need advanced options?" 10 100
-
-valRet=$?
-
-case $valRet in
-    0)
-	# Oui	
-	;;
-    1)
-	# Non
-	`echo $Commande`
-	exit 0
-	;;
-    255)
-	arret_utilisateur
-	;;
-esac
-
-
-
-
+advanced_options()
+{
 #########################################################
 # Server Authentification                               #
 #########################################################
-$DIALOG --title "Fusion Inventory - Server Authentification" --insecure \
-    --mixedform "" 15 100 0 \
-    "Username: " 1 1 "" 1 20 50 0 0 \
-    "Password: " 2 1 "" 2 20 50 0 1 2>$fichierTemp
+    $DIALOG --title "Fusion Inventory - Server Authentification" --insecure \
+	--mixedform "" 15 100 0 \
+	"Username: " 1 1 "" 1 20 50 0 0 \
+	"Password: " 2 1 "" 2 20 50 0 1 2>$fichierTemp
 
-valRet=$?
+    valRet=$?
 
-case $valRet in
-    0)
+    case $valRet in
+	0)
 	# Ajout de l'username
-	user=`cat $fichierTemp | head -n 1`
+	    user=`cat $fichierTemp | head -n 1`
 	# Ajout de l'username
-	pass=`cat $fichierTemp | head -n 2 | tail -n 1`
+	    pass=`cat $fichierTemp | head -n 2 | tail -n 1`
 
-	if [  ! $user = "" ]; then
-	    if [ ! $pass = "" ]; then
-		    Commande=$Commande"--user="$user" --password="$pass" "
+	    if [  ! $user = "" ]; then
+		if [ ! $pass = "" ]; then
+		    Commande=$Commande" --user="$user" --password="$pass
+		fi
 	    fi
-	fi
-	;;
-    *)
-	arret_utilisateur
-	;;
-esac
+	    ;;
+	*)
+	    arret_utilisateur
+	    ;;
+    esac
 
 
 
@@ -119,25 +92,25 @@ esac
 #########################################################
 # SSL options                                           #
 #########################################################
-$DIALOG --title "Fusion Inventory" --clear \
+    $DIALOG --title "Fusion Inventory" --clear \
 	--yesno "The SSL cert has to be written in /etc/fusioninventory/certs\n\nDo you want to ignore certificate check when establishing SSL connection" 10 100
 
-valRet=$?
+    valRet=$?
 
 # Création du dossier 
-mkdir -p /etc/fusioninventory/certs/
+    mkdir -p /etc/fusioninventory/certs/
 
-case $valRet in
-    0)
-	Commande=$Commande"--ca-cert-dir=/etc/fusioninventory/certs --no-ssl-check "
-	;;
-    1)
-	Commande=$Commande"--ca-cert-dir=/etc/fusioninventory/certs "
-	;;
-    255)
-	arret_utilisateur
-	;;
-esac
+    case $valRet in
+	0)
+	    Commande=$Commande" --ca-cert-dir=/etc/fusioninventory/certs --no-ssl-check"
+	    ;;
+	1)
+	    Commande=$Commande" --ca-cert-dir=/etc/fusioninventory/certs"
+	    ;;
+	255)
+	    arret_utilisateur
+	    ;;
+    esac
 
 
 
@@ -145,21 +118,21 @@ esac
 #########################################################
 # Proxy                                                 #
 #########################################################
-$DIALOG --title "Fusion Inventory" --clear \
-    --inputbox "Proxy: \nExample http://www-proxy:8080\n" 16 100 2>$fichierTemp
+    $DIALOG --title "Fusion Inventory" --clear \
+	--inputbox "Proxy: \nExample http://www-proxy:8080\n" 16 100 2>$fichierTemp
 
-valRet=$?
+    valRet=$?
 
-case $valRet in
-    0)
-	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande"--proxy="`cat $fichierTemp`" "
-	fi
-	;;
-    *)
-	arret_utilisateur
-	;;
-esac
+    case $valRet in
+	0)
+	    if [ ! `cat $fichierTemp` = "" ]; then
+		Commande=$Commande" --proxy="`cat $fichierTemp`
+	    fi
+	    ;;
+	*)
+	    arret_utilisateur
+	    ;;
+    esac
 
 
 
@@ -194,16 +167,16 @@ esac
 #
 #valRet=$?
 #
-case $valRet in
-    0)
-	Commande=$Commande"--debug "
-	;;
-    1)
-	;;
-    255)
-	arret_utilisateur
-	;;
-esac
+    case $valRet in
+	0)
+	    Commande=$Commande" --debug"
+	    ;;
+	1)
+	    ;;
+	255)
+	    arret_utilisateur
+	    ;;
+    esac
 
 
 
@@ -233,21 +206,21 @@ esac
 #########################################################
 # Look for virtual machines in home directories         #
 #########################################################
-$DIALOG --title "Fusion Inventory" --clear \
+    $DIALOG --title "Fusion Inventory" --clear \
 	--yesno "Should the agent look for virtual machines in home directories?" 10 100
 
-valRet=$?
+    valRet=$?
 
-case $valRet in
-    0)
-	Commande=$Commande"--scan-homedirs "
-	;;
-    1)
-	;;
-    255)
-	arret_utilisateur
-	;;
-esac
+    case $valRet in
+	0)
+	    Commande=$Commande" --scan-homedirs"
+	    ;;
+	1)
+	    ;;
+	255)
+	    arret_utilisateur
+	    ;;
+    esac
 
 
 
@@ -255,15 +228,65 @@ esac
 #########################################################
 # Destination folder                                    #
 #########################################################
+    $DIALOG --title "Fusion Inventory" --clear \
+	--inputbox "Where to keep a local copy of the inventory?:" 16 100 "/root" 2>$fichierTemp
+
+    valRet=$?
+
+    case $valRet in
+	0)
+	    if [ ! `cat $fichierTemp` = "" ]; then
+		Commande=$Commande" --local "`cat $fichierTemp`
+	    fi
+	    ;;
+	*)
+	    arret_utilisateur
+	    ;;
+    esac
+
+
+
+
+#########################################################
+# Exécution de la commande                              #
+#########################################################
+    echo $Commande
+    `echo $Commande`
+    lancement_shell
+}
+
+
+
+#---------------------------------------------------------------------------------------------------------
+# Début du script
+
+
+#########################################################
+# Création du fichier temporaire contenant les réponses #
+#########################################################
+fichierTemp=/tmp/fichierTempFusionInventory.$$
+#########################################################
+# Suppression du fichier temporaire                     #
+#########################################################
+trap "rm -f $fichierTemp" 0 1 2 5 15
+
+
+
+Commande="fusioninventory-agent"
+
+
+#########################################################
+# Liste des serveurs                                    #
+#########################################################
 $DIALOG --title "Fusion Inventory" --clear \
-    --inputbox "Where to keep a local copy of the inventory?:" 16 100 "/root" 2>$fichierTemp
+    --inputbox "Servers addresses (separated by a comma [,]): \n( http://fusionserv/ocsinventory )" 16 100 2>$fichierTemp
 
 valRet=$?
 
 case $valRet in
     0)
 	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande"--local "`cat $fichierTemp`" "
+	    Commande=$Commande" --server "`cat $fichierTemp`
 	fi
 	;;
     *)
@@ -275,15 +298,25 @@ esac
 
 
 #########################################################
-# Suppression du fichier temporaire                     #
+# Advanced options                                      #
 #########################################################
-rm -rf $fichierTemp
+$DIALOG --title "Fusion Inventory" --clear \
+    --yesno "Do you need advanced options?" 10 100
 
+valRet=$?
 
-
-
-#########################################################
-# Exécution de la commande                              #
-#########################################################
-echo $Commande
-`echo $Commande`
+case $valRet in
+    0)
+	# Oui
+	advanced_options
+	;;
+    1)
+	# Non
+	echo $Commande
+	`echo $Commande`
+	lancement_shell
+	;;
+    255)
+	arret_utilisateur
+	;;
+esac
