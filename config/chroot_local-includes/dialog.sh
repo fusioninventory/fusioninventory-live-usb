@@ -9,9 +9,9 @@ DIALOG=${DIALOG=dialog}
 
 
 #########################################################
-# Fonction utilisée lors de l'interruption du programme #
+# Function used during the interruption of programme    #
 #########################################################
-arret_utilisateur()
+stop_user()
 {
     $DIALOG --title "Fusion Inventory" --clear \
 	--yesno "Do you want to restart your computer now?" 10 30
@@ -26,7 +26,7 @@ arret_utilisateur()
 	    ;;
 	*)
 	    # Non ou echap - Recommencer?
-	    sh fichierTest.sh
+	    sh dialog.sh
 	    ;;
     esac
 }
@@ -35,9 +35,9 @@ arret_utilisateur()
 
 
 #########################################################
-# Fonction pour le lancement d'un shell                 #
+# Function for launch a shell                           #
 #########################################################
-lancement_shell()
+launch_shell()
 {
     $DIALOG --title "Fusion Inventory" --clear --no-label "Reboot" \
 	--yesno "Do you want a shell?" 10 50
@@ -82,7 +82,7 @@ advanced_options()
 	    fi
 	    ;;
 	*)
-	    arret_utilisateur
+	    stop_user
 	    ;;
     esac
 
@@ -108,7 +108,7 @@ advanced_options()
 	    Commande=$Commande" --ca-cert-dir=/etc/fusioninventory/certs"
 	    ;;
 	255)
-	    arret_utilisateur
+	    stop_user
 	    ;;
     esac
 
@@ -119,7 +119,7 @@ advanced_options()
 # Proxy                                                 #
 #########################################################
     $DIALOG --title "Fusion Inventory" --clear \
-	--inputbox "Proxy: \nExample http://www-proxy:8080\n" 16 100 2>$fichierTemp
+	--inputbox "Proxy: \nExample http://www-proxy:8080\nEmpty if none" 16 100 2>$fichierTemp
 
     valRet=$?
 
@@ -130,7 +130,7 @@ advanced_options()
 	    fi
 	    ;;
 	*)
-	    arret_utilisateur
+	    stop_user
 	    ;;
     esac
 
@@ -152,7 +152,7 @@ advanced_options()
 #	fi
 #	;;
 #    *)
-#	arret_utilisateur
+#	stop_user
 #	;;
 #esac
 #
@@ -167,16 +167,18 @@ advanced_options()
 #
 #valRet=$?
 #
-    case $valRet in
-	0)
-	    Commande=$Commande" --debug"
-	    ;;
-	1)
-	    ;;
-	255)
-	    arret_utilisateur
-	    ;;
-    esac
+#    case $valRet in
+#	0)
+
+    # Always in debug
+    Commande=$Commande" --debug"
+#	    ;;
+#	1)
+#	    ;;
+#	255)
+#	    stop_user
+#	    ;;
+#  esac
 
 
 
@@ -196,7 +198,7 @@ advanced_options()
 #    1)
 #	;;
 #    255)
-#	arret_utilisateur
+#	stop_user
 #	;;
 #esac
 #
@@ -218,7 +220,7 @@ advanced_options()
 	1)
 	    ;;
 	255)
-	    arret_utilisateur
+	    stop_user
 	    ;;
     esac
 
@@ -240,7 +242,7 @@ advanced_options()
 	    fi
 	    ;;
 	*)
-	    arret_utilisateur
+	    stop_user
 	    ;;
     esac
 
@@ -248,25 +250,25 @@ advanced_options()
 
 
 #########################################################
-# Exécution de la commande                              #
+# Run agent                                             #
 #########################################################
     echo $Commande
     `echo $Commande`
-    lancement_shell
+    launch_shell
 }
 
 
 
 #---------------------------------------------------------------------------------------------------------
-# Début du script
+# Begin of script
 
 
 #########################################################
-# Création du fichier temporaire contenant les réponses #
+# Creation of the temp file for the responses           #
 #########################################################
 fichierTemp=/tmp/fichierTempFusionInventory.$$
 #########################################################
-# Suppression du fichier temporaire                     #
+# Trap for deleting the temp file                       #
 #########################################################
 trap "rm -f $fichierTemp" 0 1 2 5 15
 
@@ -276,7 +278,7 @@ Commande="fusioninventory-agent"
 
 
 #########################################################
-# Liste des serveurs                                    #
+# Servers's list                                        #
 #########################################################
 $DIALOG --title "Fusion Inventory" --clear \
     --inputbox "Servers addresses (separated by a comma [,]): \n( http://fusionserv/ocsinventory )" 16 100 2>$fichierTemp
@@ -290,7 +292,7 @@ case $valRet in
 	fi
 	;;
     *)
-	arret_utilisateur
+	stop_user
 	;;
 esac
 
@@ -314,9 +316,9 @@ case $valRet in
 	# Non
 	echo $Commande
 	`echo $Commande`
-	lancement_shell
+	launch_shell
 	;;
     255)
-	arret_utilisateur
+	stop_user
 	;;
 esac
