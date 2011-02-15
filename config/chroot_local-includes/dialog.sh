@@ -38,7 +38,7 @@ stop_user()
             # Oui
 	    # reboot
 	    echo "reboot"
-	    exit 0
+	    reboot
 	    ;;
 	*)
 	    # Non ou echap - Recommencer?
@@ -66,7 +66,7 @@ launch_shell()
 	    ;;
 	*)
 	    # Redémarrage
-	    exit 0
+	    reboot
 	    ;;
     esac
 }
