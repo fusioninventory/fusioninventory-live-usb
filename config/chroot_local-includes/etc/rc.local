@@ -13,7 +13,8 @@
 
 dpkg-reconfigure keyboard-configuration
 setupcon
-sh ../dialog.sh
-reboot
+#reset
+#sh ../dialog.sh
+#reboot
 
 exit 0
