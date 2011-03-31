@@ -45,8 +45,8 @@ LB_LINUX_PACKAGES="linux-image-2.6"
 LB_REPOSITORIES=""
 
 # $LB_PACKAGES: set packages to install
-# (Default: empty)
-LB_PACKAGES="fusioninventory-agent xresprobe menu firmware-linux-nonfree firmware-linux libfusioninventory-agent-task-netdiscovery-perl libfusioninventory-agent-task-snmpquery-perl libfusioninventory-agent-task-ocsdeploy-perl nmap dialog hdparm dmidecode libcrypt-ssleay-perl"
+# (Default: empty) xresprobe
+LB_PACKAGES="fusioninventory-agent menu firmware-linux-nonfree firmware-linux libfusioninventory-agent-task-netdiscovery-perl libfusioninventory-agent-task-snmpquery-perl libfusioninventory-agent-task-ocsdeploy-perl nmap dialog hdparm dmidecode libcrypt-ssleay-perl"
 
 # $LB_PACKAGES_LISTS: set package list to install
 # (Default: standard)
