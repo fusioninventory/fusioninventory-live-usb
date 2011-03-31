@@ -224,21 +224,21 @@ advanced_options()
 #########################################################
 # Look for virtual machines in home directories         #
 #########################################################
-    $DIALOG --title "Fusion Inventory" --clear \
-	--yesno "Should the agent look for virtual machines in home directories?" 10 100
-
-    valRet=$?
-
-    case $valRet in
-	0)
-	    Commande=$Commande" --scan-homedirs"
-	    ;;
-	1)
-	    ;;
-	255)
-	    stop_user
-	    ;;
-    esac
+#    $DIALOG --title "Fusion Inventory" --clear \
+#	--yesno "Should the agent look for virtual machines in home directories?" 10 100
+#
+#    valRet=$?
+#
+#    case $valRet in
+#	0)
+#	    Commande=$Commande" --scan-homedirs"
+#	    ;;
+#	1)
+#	    ;;
+#	255)
+#	    stop_user
+#	    ;;
+#    esac
 
 
 
