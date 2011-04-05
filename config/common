@@ -1,7 +1,7 @@
 # config/common - common options for live-build(7)
 
 # LB_CONFIG_VERSION: internal version of the configuration file format
-LB_CONFIG_VERSION="2.0.1"
+LB_CONFIG_VERSION="2.0.12"
 
 # $LB_APT: set package manager
 # (Default: apt)
@@ -28,7 +28,7 @@ LB_APT_PIPELINE=""
 LB_APT_RECOMMENDS="true"
 
 # $LB_APT_SECURE: set apt/aptitude security
-# (Default: true)
+# (Default: false)
 LB_APT_SECURE="false"
 
 # $LB_BOOTSTRAP: set bootstrap program
@@ -64,8 +64,8 @@ LB_DEBCONF_NOWARNINGS="yes"
 LB_DEBCONF_PRIORITY="critical"
 
 # $LB_INITRAMFS: set initramfs hook
-# (Default: auto)
-LB_INITRAMFS="auto"
+# (Default: live-initramfs)
+LB_INITRAMFS="live-initramfs"
 
 # $LB_FDISK: set fdisk program
 # (Default: autodetected)
@@ -128,5 +128,5 @@ _QUIET="false"
 # Internal stuff (FIXME)
 APT_OPTIONS="--yes"
 APTITUDE_OPTIONS="--assume-yes"
-GZIP_OPTIONS="--best --rsyncable"
+GZIP_OPTIONS="--best  --rsyncable"
 ISOHYBRID_OPTIONS=""
