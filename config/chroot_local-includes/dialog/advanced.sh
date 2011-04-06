@@ -129,5 +129,23 @@ case $valRet in
 	;;
 esac
 
+### Tag ###
+
+$DIALOG --title "Fusion Inventory" --clear \
+    --inputbox "Tag: \nEmpty if none" 16 100 2>$fichierTemp
+
+valRet=$?
+
+case $valRet in
+    0)
+	if [ ! `cat $fichierTemp` = "" ]; then
+	    Commande=$Commande" --tag="`cat $fichierTemp`
+	fi
+	;;
+    *)
+	stop_user
+	;;
+esac
+
 ### Run agent ###
 sh $file_path/execution.sh $DIALOG "$Commande" "$file_path"
