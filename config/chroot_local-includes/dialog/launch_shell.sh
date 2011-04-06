@@ -20,24 +20,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. #
 ###################################################################################
 DIALOG=$1
-Commande=$2
-file_path=$3
-save_path=$4
 
-### Creation of the temp file for the responses ###
-fichierTemp=/tmp/fichierTempFusionInventory.$$
-### Trap for deleting the temp file ###
-trap "rm -f $fichierTemp" 0 1 2 5 15
 
-### Debug mode ###
-Commande=$Commande" --debug"
+$DIALOG --title "Fusion Inventory" --clear --no-label "Reboot" \
+    --yesno "Do you want a shell?" 10 50
 
-### Save ###
-touch $save_path
-echo "$Commande" > $save_path
+valRet=$?
 
-### Run ###
-echo $Commande
-`echo $Commande`
-sh $file_path/launch_shell.sh $DIALOG
-exit 0
+case $valRet in
+    0)
+        # Lancement d'un shell
+	;;
+    *)
+	# Redémarrage
+	reboot
+	;;
+esac

@@ -21,6 +21,7 @@
 ###################################################################################
 DIALOG=${DIALOG=dialog}
 file_path="../dialog"
+save_path="/root/.a_configuration_agent"
 
 #########################################################
 # Function used during the interruption of programme    #
@@ -44,15 +45,35 @@ stop_user()
     esac
 }
 
+
 #---------------------------------------------------------------------------------------------------------
 # Begin of script
-
 
 ### Creation of the temp file for the responses ###
 fichierTemp=/tmp/fichierTempFusionInventory.$$
 ### Trap for deleting the temp file ###
 trap "rm -f $fichierTemp" 0 1 2 5 15
 
+
+### Check for a backup ###
+if [ -f $save_path ]; then
+    $DIALOG --title "Fusion Inventory" --clear \
+	--yesno "Backup is present, do you want to execute?" 10 100
+    valRet=$?
+    case $valRet in
+	0)
+	    # Oui
+	    Commande=`cat $save_path | head -n 1`
+	    echo $Commande
+	    `echo $Commande`
+	    sh $file_path/launch_shell.sh $DIALOG
+	    exit 0
+	    ;;
+	255)
+	    stop_user
+	    ;;
+    esac
+fi
 Commande="fusioninventory-agent"
 
 ### Servers's list ###
@@ -81,11 +102,11 @@ valRet=$?
 case $valRet in
     0)
 	# Oui
-	sh $file_path/advanced.sh $DIALOG "$Commande" "$file_path"
+	sh $file_path/advanced.sh $DIALOG "$Commande" "$file_path" "$save_path"
 	;;
     1)
 	# Non
-	sh $file_path/execution.sh $DIALOG "$Commande" "$file_path"
+	sh $file_path/execution.sh $DIALOG "$Commande" "$file_path" "$save_path"
 	;;
     255)
 	stop_user

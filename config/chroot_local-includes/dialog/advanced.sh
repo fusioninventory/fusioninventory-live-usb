@@ -22,6 +22,7 @@
 DIALOG=$1
 Commande=$2
 file_path=$3
+save_path=$4
 
 ### Creation of the temp file for the responses ###
 fichierTemp=/tmp/fichierTempFusionInventory.$$
@@ -148,4 +149,5 @@ case $valRet in
 esac
 
 ### Run agent ###
-sh $file_path/execution.sh $DIALOG "$Commande" "$file_path"
+sh $file_path/execution.sh $DIALOG "$Commande" "$file_path" "$save_path"
+exit 0
