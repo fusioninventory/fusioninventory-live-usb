@@ -2,5 +2,5 @@
 
 if [ "$PS1" ]; then
 setupcon
-sh ../dialog.sh
+sh ../dialog/init.sh
 fi
