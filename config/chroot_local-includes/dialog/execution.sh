@@ -19,33 +19,9 @@
 # along with this program; if not, write to the Free Software                     #
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. #
 ###################################################################################
-DIALOG=${DIALOG=dialog}
-file_path="../dialog"
-
-#########################################################
-# Function used during the interruption of programme    #
-#########################################################
-stop_user()
-{
-    $DIALOG --title "Fusion Inventory" --clear \
-	--yesno "Do you want to restart your computer now?" 10 30
-    
-    valRet=$?
-    case $valRet in
-	0)
-            # Oui
-	    # reboot
-	    reboot
-	    ;;
-	*)
-	    # Non ou echap - Recommencer?
-	    sh init.sh
-	    ;;
-    esac
-}
-
-#---------------------------------------------------------------------------------------------------------
-# Begin of script
+DIALOG=$1
+Commande=$2
+file_path=$3
 
 
 ### Creation of the temp file for the responses ###
@@ -53,41 +29,31 @@ fichierTemp=/tmp/fichierTempFusionInventory.$$
 ### Trap for deleting the temp file ###
 trap "rm -f $fichierTemp" 0 1 2 5 15
 
-Commande="fusioninventory-agent"
+#########################################################
+# Function for launch a shell                           #
+#########################################################
+launch_shell()
+{
+    $DIALOG --title "Fusion Inventory" --clear --no-label "Reboot" \
+	--yesno "Do you want a shell?" 10 50
+    
+    valRet=$?
+    
+    case $valRet in
+	0)
+            # Lancement d'un shell
+	    ;;
+	*)
+	    # Redémarrage
+	    echo "reboot"
+	    ;;
+    esac
+}
 
-### Servers's list ###
-$DIALOG --title "Fusion Inventory" --clear \
-    --inputbox "Servers addresses (separated by a comma [,]): \n( http://fusionserv/ocsinventory )" 16 100 2>$fichierTemp
+### Debug mode ###
+Commande=$Commande" --debug"
 
-valRet=$?
-
-case $valRet in
-    0)
-	if [ ! `cat $fichierTemp` = "" ]; then
-	    Commande=$Commande" --server "`cat $fichierTemp`
-	fi
-	;;
-    *)
-	stop_user
-	;;
-esac
-
-### Advanced options ###
-$DIALOG --title "Fusion Inventory" --clear \
-    --yesno "Do you need advanced options?" 10 100
-
-valRet=$?
-
-case $valRet in
-    0)
-	# Oui
-	sh $file_path/advanced.sh $DIALOG "$Commande" "$file_path"
-	;;
-    1)
-	# Non
-	sh $file_path/execution.sh $DIALOG "$Commande" "$file_path"
-	;;
-    255)
-	stop_user
-	;;
-esac
+### Run ###
+echo $Commande
+`echo $Commande`
+launch_shell
