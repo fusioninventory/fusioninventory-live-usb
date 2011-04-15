@@ -30,7 +30,7 @@ fichierTemp=/tmp/fichierTempFusionInventory.$$
 trap "rm -f $fichierTemp" 0 1 2 5 15
 
 ### Debug mode ###
-Commande=$Commande" --debug"
+Commande=$Commande" --debug --no-software"
 
 ### Save ###
 touch $save_path
