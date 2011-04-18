@@ -45,6 +45,7 @@ stop_user()
 	*)
 	    # Non ou echap - Recommencer?
 	    sh init.sh
+	    exit 0
 	    ;;
     esac
 }

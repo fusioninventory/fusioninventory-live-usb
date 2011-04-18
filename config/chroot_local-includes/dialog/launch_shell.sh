@@ -30,6 +30,7 @@ valRet=$?
 case $valRet in
     0)
         # Lancement d'un shell
+	clear
 	;;
     *)
 	# Redémarrage

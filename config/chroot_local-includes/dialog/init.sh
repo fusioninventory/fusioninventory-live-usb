@@ -41,6 +41,7 @@ stop_user()
 	*)
 	    # Non ou echap - Recommencer?
 	    sh init.sh
+	    exit 0
 	    ;;
     esac
 }
@@ -103,10 +104,12 @@ case $valRet in
     0)
 	# Oui
 	sh $file_path/advanced.sh $DIALOG "$Commande" "$file_path" "$save_path"
+	exit 0
 	;;
     1)
 	# Non
 	sh $file_path/execution.sh $DIALOG "$Commande" "$file_path" "$save_path"
+	exit 0
 	;;
     255)
 	stop_user
