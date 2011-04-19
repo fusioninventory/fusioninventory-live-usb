@@ -21,8 +21,11 @@
 ###################################################################################
 DIALOG=$1
 
+# Cleaning the /var/lib/fusioninventory-agent/
+echo -e "\nCleaning /var/lib/fusioninventory-agent/\n\n"
+rm -rf /var/lib/fusioninventory-agent/*
 
-$DIALOG --title "Fusion Inventory" --clear --no-label "Reboot" \
+$DIALOG --title " Fusion Inventory " --clear --no-label "Reboot" \
     --yesno "Do you want a shell?" 10 50
 
 valRet=$?

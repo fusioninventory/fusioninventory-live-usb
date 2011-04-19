@@ -28,7 +28,7 @@ save_path="/root/.a_configuration_agent"
 #########################################################
 stop_user()
 {
-    $DIALOG --title "Fusion Inventory" --clear \
+    $DIALOG --title " Fusion Inventory " --clear \
 	--yesno "Do you want to restart your computer now?" 10 30
     
     valRet=$?
@@ -58,7 +58,7 @@ trap "rm -f $fichierTemp" 0 1 2 5 15
 
 ### Check for a backup ###
 if [ -f $save_path ]; then
-    $DIALOG --title "Fusion Inventory" --clear \
+    $DIALOG --title " Fusion Inventory " --clear \
 	--yesno "Backup is present, do you want to execute?" 10 100
     valRet=$?
     case $valRet in
@@ -78,7 +78,7 @@ fi
 Commande="fusioninventory-agent"
 
 ### Servers's list ###
-$DIALOG --title "Fusion Inventory" --clear \
+$DIALOG --title " Fusion Inventory " --clear \
     --inputbox "Servers addresses (separated by a comma [,]): \n( http://fusionserv/ocsinventory )" 16 100 2>$fichierTemp
 
 valRet=$?
@@ -95,7 +95,7 @@ case $valRet in
 esac
 
 ### Advanced options ###
-$DIALOG --title "Fusion Inventory" --clear \
+$DIALOG --title " Fusion Inventory " --clear \
     --yesno "Do you need advanced options?" 10 100
 
 valRet=$?

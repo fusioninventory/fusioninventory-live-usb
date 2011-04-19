@@ -24,13 +24,13 @@ tab_len = 0
 visit_items = OFF
 
 # Shadow dialog boxes? This also turns on color.
-use_shadow = ON
+use_shadow = OFF
 
 # Turn color support ON or OFF
 use_colors = ON
 
 # Screen color
-screen_color = (BLACK,WHITE,ON)
+screen_color = (CYAN,BLACK,ON)
 
 # Shadow color
 shadow_color = (BLACK,BLACK,ON)
@@ -39,28 +39,28 @@ shadow_color = (BLACK,BLACK,ON)
 dialog_color = (BLACK,WHITE,OFF)
 
 # Dialog box title color
-title_color = (BLACK,WHITE,ON)
+title_color = (BLUE,WHITE,ON)
 
 # Dialog box border color
-border_color = (WHITE,WHITE,ON)
+border_color = (BLACK,WHITE,ON)
 
 # Active button color
-button_active_color = (WHITE,BLACK,ON)
+button_active_color = (WHITE,BLUE,ON)
 
 # Inactive button color
-button_inactive_color = (WHITE,WHITE,OFF)
+button_inactive_color = (BLACK,WHITE,OFF)
 
 # Active button key color
-button_key_active_color = (WHITE,BLACK,ON)
+button_key_active_color = (WHITE,BLUE,ON)
 
 # Inactive button key color
-button_key_inactive_color = (WHITE,WHITE,ON)
+button_key_inactive_color = (RED,WHITE,OFF)
 
 # Active button label color
-button_label_active_color = (WHITE,BLACK,ON)
+button_label_active_color = (YELLOW,BLUE,ON)
 
 # Inactive button label color
-button_label_inactive_color = (WHITE,WHITE,ON)
+button_label_inactive_color = (BLACK,WHITE,ON)
 
 # Input box color
 inputbox_color = (BLACK,WHITE,OFF)
@@ -120,10 +120,10 @@ darrow_color = (GREEN,WHITE,ON)
 itemhelp_color = (WHITE,BLACK,OFF)
 
 # Active form text color
-form_active_text_color = (WHITE,BLACK,ON)
+form_active_text_color = (WHITE,BLUE,ON)
 
 # Form text color
-form_text_color = (BLACK,WHITE,ON)
+form_text_color = (WHITE,CYAN,ON)
 
 # Readonly form item color
 form_item_readonly_color = (CYAN,WHITE,ON)

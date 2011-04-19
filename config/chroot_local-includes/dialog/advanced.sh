@@ -32,7 +32,7 @@ trap "rm -f $fichierTemp" 0 1 2 5 15
 ### Function used during the interruption of programme ###
 stop_user()
 {
-    $DIALOG --title "Fusion Inventory" --clear \
+    $DIALOG --title " Fusion Inventory " --clear \
 	--yesno "Do you want to restart your computer now?" 10 30
     
     valRet=$?
@@ -77,7 +77,7 @@ case $valRet in
 esac
 
 ### SSL options ###
-$DIALOG --title "Fusion Inventory" --clear \
+$DIALOG --title " Fusion Inventory " --clear \
     --yesno "The SSL cert has to be written in /etc/fusioninventory/certs\n\nDo you want to ignore certificate check when establishing SSL connection" 10 100
 
 valRet=$?
@@ -98,7 +98,7 @@ case $valRet in
 esac
 
 ### Proxy ###
-$DIALOG --title "Fusion Inventory" --clear \
+$DIALOG --title " Fusion Inventory " --clear \
     --inputbox "Proxy: \nExample http://www-proxy:8080\nEmpty if none" 16 100 2>$fichierTemp
 
 valRet=$?
@@ -115,7 +115,7 @@ case $valRet in
 esac
 
 ### Destination folder ###
-$DIALOG --title "Fusion Inventory" --clear \
+$DIALOG --title " Fusion Inventory " --clear \
     --inputbox "Where to keep a local copy of the inventory?:" 16 100 "/root" 2>$fichierTemp
 
 valRet=$?
@@ -133,7 +133,7 @@ esac
 
 ### Tag ###
 
-$DIALOG --title "Fusion Inventory" --clear \
+$DIALOG --title " Fusion Inventory " --clear \
     --inputbox "Tag: \nEmpty if none" 16 100 2>$fichierTemp
 
 valRet=$?
