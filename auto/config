@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+    --mirror-bootstrap http://http.debian.net/debian/ \
+    --mirror-binary http://http.debian.net/debian/ \
+    --bootappend-live "boot=live config locales=fr_FR.UTF-8 keyboard-layouts=fr username=fusionuser" \
+    --archive-areas "main contrib non-free" \
+	"${@}"
