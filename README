@@ -13,10 +13,16 @@ config/includes.chroot/etc/fusioninventory/agent.cfg
 Build
 -----
 
-Following command will create (after some time, depending on your network
+Following commands will configure and then build (after some time, depending on your network
 connection) an ISO file automatically configured to launch
 fusioninventory-agent at boot:
+ $ sudo lb config
+...
  $ sudo lb build
+...
+
+All build processe is logged into build.log file.
+
 
 This ISO file can be copied to USB key with dd, with a /dev/sbd USB:
  $ sudo dd if=binary.hybrid.iso of=/dev/sdb
