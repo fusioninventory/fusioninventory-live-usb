@@ -1,9 +1,0 @@
-This is a attend to embed FusionInventory Agent on a Live USB stick.
-
-Requirement:
- Debian Squeeze
- live-build 2
- sudo (for Makefile)
-
-Build:
- make
