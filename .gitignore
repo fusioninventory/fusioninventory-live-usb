@@ -12,13 +12,22 @@ build.log
 cache/
 
 chroot/
+chroot.files
 chroot.packages.*
 
 config/binary
 config/bootstrap
+config/build
 config/chroot
 config/common
+config/hooks/
+config/package-lists/live.list.chroot
 config/source
+
+live-image-amd64.contents
+live-image-amd64.files
+live-image-amd64.hybrid.iso.zsync
+live-image-amd64.packages
 
 source/
 source*.iso
@@ -27,3 +36,6 @@ source*.tar*
 source*.contents
 source*.packages
 source*.zsync
+
+
+
